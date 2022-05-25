@@ -1,0 +1,49 @@
+﻿@model PricingViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- ======= Pricing Section ======= -->
+<section id="pricing" class="pricing">
+    <div class="container">
+
+        <div class="section-title">
+            <span>Pricing</span>
+            <h2>Pricing</h2>
+            <p>Sit sint consectetur velit quisquam cupiditate impedit suscipit alias</p>
+        </div>
+
+        <div class="row">
+            @foreach (Pricing pricing in Model.Pricings)
+            {
+                <div class="col-lg-4 col-md-6 mt-4 mt-md-0" data-aos="zoom-in">
+                    <div class="box @(pricing.IsFeatured == true ? "featured":"")">
+                        <h3>@pricing.IsFeatured</h3>
+                        <h4><sup>$</sup>@pricing.Price<span> / month</span></h4>
+                        <ul>
+                            @for (int i = 0; i < Model.PlanItems.Count; i++)
+                            {
+                                if (pricing.PricingPlanItems.Exists(p => p.PlanItemId == Model.PlanItems[i].Id))
+                                {
+                                    <li class="">@Model.PlanItems[i].Name</li>
+
+                                }
+                                else
+                                {
+                                    <li class="na">@Model.PlanItems[i].Name</li>
+
+                                }
+                            }
+                        </ul>
+                        <div class="btn-wrap">
+                            <a href="#" class="btn-buy">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+</section><!-- End Pricing Section -->
